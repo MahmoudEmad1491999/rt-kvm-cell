@@ -1,0 +1,6 @@
+output/
+build/
+.agent/
+*.qcow2
+*.img
+__pycache__/

@@ -1,0 +1,14 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  fast:
+    # Full image builds + nested-KVM boot tests run locally (ci/check.sh); GitHub runs the fast subset.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { submodules: recursive }
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck ninja-build cmake
+      - run: |
+          shopt -s nullglob globstar
+          f=(scripts/**/*.sh ci/*.sh br2-external/**/*.sh); [ ${#f[@]} -eq 0 ] || shellcheck "${f[@]}"
+      - run: if [ -f Makefile ]; then make ci; fi
