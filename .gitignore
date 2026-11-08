@@ -1,6 +1,34 @@
+# Buildroot output and downloaded sources
 output/
 build/
-.agent/
+dl/
+
+# VM disk images
 *.qcow2
 *.img
+*.iso
+
+# C build artifacts
+*.o
+*.a
+*.so
+*.so.*
+*.d
+
+# Python
 __pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Editor temporaries
+*.swp
+*~
+.*.sw?
+
+# Agent state (commit messages, scratch)
+.agent/
+
+# Log files from test runs and scripts
+*.log
