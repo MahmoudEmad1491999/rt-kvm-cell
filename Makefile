@@ -1,4 +1,10 @@
-.PHONY: images run check ci clean
+.PHONY: images run check ci clean submodule-init
+
+BUILDROOT := buildroot
+
+# Populate the Buildroot submodule (run once after clone).
+submodule-init:
+	git submodule update --init --depth=1 $(BUILDROOT)
 
 # Build all Buildroot images (L1 cell host + L2 guests).
 # Implemented in Phase 0 step 3 of the roadmap.
