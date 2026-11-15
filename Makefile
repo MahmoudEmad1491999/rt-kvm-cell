@@ -1,15 +1,28 @@
 .PHONY: images run check ci clean submodule-init
 
-BUILDROOT := buildroot
+BUILDROOT       := buildroot
+BR2_EXT         := $(CURDIR)/br2-external
+OUTPUT_CELLHOST := $(CURDIR)/output/cellhost
+DL_DIR          := $(HOME)/.cache/rt-kvm-cell/dl
 
 # Populate the Buildroot submodule (run once after clone).
 submodule-init:
 	git submodule update --init --depth=1 $(BUILDROOT)
 
-# Build all Buildroot images (L1 cell host + L2 guests).
-# Implemented in Phase 0 step 3 of the roadmap.
-images:
-	@echo "TODO: images not yet implemented (see ROADMAP.md Phase 0)" && exit 1
+# Build all Buildroot images (L1 cell host; guests added in Phase 1).
+images: images-cellhost
+
+images-cellhost:
+	mkdir -p $(OUTPUT_CELLHOST) $(DL_DIR)
+	$(MAKE) -C $(BUILDROOT) \
+		O=$(OUTPUT_CELLHOST) \
+		BR2_EXTERNAL=$(BR2_EXT) \
+		BR2_DL_DIR=$(DL_DIR) \
+		cellhost_defconfig
+	$(MAKE) -C $(BUILDROOT) \
+		O=$(OUTPUT_CELLHOST) \
+		BR2_DL_DIR=$(DL_DIR) \
+		-j$(shell nproc)
 
 # Boot the L1 cell-host VM in QEMU.
 # Implemented in Phase 0 step 4 of the roadmap.
