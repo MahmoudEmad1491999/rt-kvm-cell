@@ -24,10 +24,9 @@ images-cellhost:
 		BR2_DL_DIR=$(DL_DIR) \
 		-j$(shell nproc)
 
-# Boot the L1 cell-host VM in QEMU.
-# Implemented in Phase 0 step 4 of the roadmap.
+# Boot the L1 cell-host VM in QEMU (requires 'make images' first).
 run:
-	@echo "TODO: run not yet implemented (see ROADMAP.md Phase 0)" && exit 1
+	scripts/run-l1.sh
 
 # Run all host-side unit and integration tests that exist.
 check:

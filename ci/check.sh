@@ -53,6 +53,17 @@ grep -q 'images-cellhost' Makefile || { echo "ERROR: images-cellhost target miss
 grep -q 'cellhost_defconfig'       Makefile || { echo "ERROR: cellhost_defconfig not referenced in Makefile" >&2; exit 1; }
 echo "  Makefile images target ok"
 
+echo "== scripts/run-l1.sh =="
+[ -f scripts/run-l1.sh ] || { echo "ERROR: scripts/run-l1.sh missing" >&2; exit 1; }
+[ -x scripts/run-l1.sh ] || { echo "ERROR: scripts/run-l1.sh not executable" >&2; exit 1; }
+grep -q -- '-enable-kvm'  scripts/run-l1.sh || { echo "ERROR: -enable-kvm missing in run-l1.sh" >&2; exit 1; }
+grep -q -- '-cpu host'    scripts/run-l1.sh || { echo "ERROR: -cpu host missing in run-l1.sh" >&2; exit 1; }
+grep -q -- '-smp 6'       scripts/run-l1.sh || { echo "ERROR: -smp 6 missing in run-l1.sh" >&2; exit 1; }
+grep -q -- '-m 6G'        scripts/run-l1.sh || { echo "ERROR: -m 6G missing in run-l1.sh" >&2; exit 1; }
+grep -q 'hostfwd'         scripts/run-l1.sh || { echo "ERROR: hostfwd (ssh) missing in run-l1.sh" >&2; exit 1; }
+grep -q 'nographic'       scripts/run-l1.sh || { echo "ERROR: headless flag missing in run-l1.sh" >&2; exit 1; }
+echo "  scripts/run-l1.sh ok"
+
 if [ -f Makefile ]; then
   echo "== make check =="
   make check

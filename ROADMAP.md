@@ -6,7 +6,7 @@ One task ≈ one day. The agent takes the first unchecked item.
 - [x] Top-level Makefile (images/run/check/ci/clean targets as stubs), `.gitignore`, `docs/design/0001-architecture.md` with the diagram from CLAUDE.md
 - [x] Pin Buildroot (latest LTS 20xx.02.x) as a submodule; `br2-external/` skeleton (external.desc, Config.in, external.mk)
 - [x] `cellhost_defconfig`: x86_64, glibc, Linux 6.18 LTS, minimal rootfs, serial console; `make images` builds it
-- [ ] `scripts/run-l1.sh`: boot cell host in QEMU (-enable-kvm -cpu host, 6 vCPU, 6 GB, slirp with ssh hostfwd), headless serial
+- [x] `scripts/run-l1.sh`: boot cell host in QEMU (-enable-kvm -cpu host, 6 vCPU, 6 GB, slirp with ssh hostfwd), headless serial
 - [ ] `tests/e2e/boot_l1.py` (pexpect): boot, log in, assert kernel version; wired into `make check`
 - [ ] Kernel fragment `kernel/rt.cfg`: PREEMPT_RT, HZ=1000, NO_HZ_FULL, RCU_NOCB, disable debug options; assert `uname -v` contains PREEMPT_RT
 - [ ] Kernel fragment `kernel/kvm-host.cfg`: KVM, KVM_INTEL, VHOST, VFIO-less virtio, tun/bridge; `/dev/kvm` present in L1 (e2e assert)
